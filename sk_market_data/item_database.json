@@ -1,1 +1,157 @@
-{}
+{
+  "Glowing Forge Prize Box": [
+    {
+      "price": 50000,
+      "timestamp": "2025-04-12T13:21:27",
+      "type": "sale"
+    }
+  ],
+  "Crest of Summer": [
+    {
+      "price": 69696,
+      "timestamp": "2025-04-12T12:33:06",
+      "type": "sale"
+    }
+  ],
+  "Hallow Sensor Unit": [
+    {
+      "price": 1000,
+      "timestamp": "2025-04-12T08:53:07",
+      "type": "sale"
+    }
+  ],
+  "Blast Bomb": [
+    {
+      "price": 1100,
+      "timestamp": "2025-04-12T08:48:07",
+      "type": "sale"
+    }
+  ],
+  "Volcanic Node Slime Guards": [
+    {
+      "price": 69999,
+      "timestamp": "2025-04-12T08:13:06",
+      "type": "sale"
+    }
+  ],
+  "Volcanic Node Slime Mask": [
+    {
+      "price": 44444,
+      "timestamp": "2025-04-12T08:09:46",
+      "type": "sale"
+    }
+  ],
+  "Dazed Draped Armor": [
+    {
+      "price": 59999,
+      "timestamp": "2025-04-12T07:14:46",
+      "type": "sale"
+    }
+  ],
+  "Iron Gear": [
+    {
+      "price": 200,
+      "timestamp": "2025-04-12T03:38:06",
+      "type": "sale"
+    },
+    {
+      "price": 200,
+      "timestamp": "2025-04-11T19:26:25",
+      "type": "sale"
+    }
+  ],
+  "Divine Star": [
+    {
+      "price": 2000,
+      "timestamp": "2025-04-12T02:49:46",
+      "type": "sale"
+    }
+  ],
+  "Defender": [
+    {
+      "price": 2500,
+      "timestamp": "2025-04-12T02:04:46",
+      "type": "sale"
+    }
+  ],
+  "Divine Star x10": [
+    {
+      "price": 20000,
+      "timestamp": "2025-04-11T22:53:06",
+      "type": "sale"
+    },
+    {
+      "price": 18000,
+      "timestamp": "2025-04-11T08:36:47",
+      "type": "sale"
+    }
+  ],
+  "Argent Peacemaker Recipe": [
+    {
+      "price": 33000,
+      "timestamp": "2025-04-11T21:29:46",
+      "type": "sale"
+    }
+  ],
+  "Divine Orb x3": [
+    {
+      "price": 4400,
+      "timestamp": "2025-04-11T19:48:05",
+      "type": "sale"
+    },
+    {
+      "price": 4400,
+      "timestamp": "2025-04-11T19:44:45",
+      "type": "sale"
+    }
+  ],
+  "Zee Core": [
+    {
+      "price": 300,
+      "timestamp": "2025-04-11T19:29:45",
+      "type": "sale"
+    }
+  ],
+  "Unstable Core": [
+    {
+      "price": 300,
+      "timestamp": "2025-04-11T19:29:45",
+      "type": "sale"
+    }
+  ],
+  "Torchstone": [
+    {
+      "price": 300,
+      "timestamp": "2025-04-11T19:28:05",
+      "type": "sale"
+    }
+  ],
+  "Owlite Feather": [
+    {
+      "price": 200,
+      "timestamp": "2025-04-11T19:26:25",
+      "type": "sale"
+    }
+  ],
+  "Ghost Bell": [
+    {
+      "price": 400,
+      "timestamp": "2025-04-11T19:26:25",
+      "type": "sale"
+    }
+  ],
+  "Power Orb x3": [
+    {
+      "price": 5990,
+      "timestamp": "2025-04-11T09:15:07",
+      "type": "sale"
+    }
+  ],
+  "Spike Shower Recipe": [
+    {
+      "price": 14000,
+      "timestamp": "2025-04-11T08:01:47",
+      "type": "sale"
+    }
+  ]
+}
