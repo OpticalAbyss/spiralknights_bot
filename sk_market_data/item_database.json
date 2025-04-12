@@ -58,12 +58,22 @@
       "price": 200,
       "timestamp": "2025-04-11T19:26:25",
       "type": "sale"
+    },
+    {
+      "price": 200,
+      "timestamp": "2025-04-12T07:39:28",
+      "type": "sale"
     }
   ],
   "Divine Star": [
     {
       "price": 2000,
       "timestamp": "2025-04-12T02:49:46",
+      "type": "sale"
+    },
+    {
+      "price": 2000,
+      "timestamp": "2025-04-14T01:52:48",
       "type": "sale"
     }
   ],
@@ -84,12 +94,22 @@
       "price": 18000,
       "timestamp": "2025-04-11T08:36:47",
       "type": "sale"
+    },
+    {
+      "price": 22222,
+      "timestamp": "2025-04-12T11:20:30",
+      "type": "sale"
     }
   ],
   "Argent Peacemaker Recipe": [
     {
       "price": 33000,
       "timestamp": "2025-04-11T21:29:46",
+      "type": "sale"
+    },
+    {
+      "price": 35000,
+      "timestamp": "2025-04-13T17:37:48",
       "type": "sale"
     }
   ],
@@ -103,6 +123,31 @@
       "price": 4400,
       "timestamp": "2025-04-11T19:44:45",
       "type": "sale"
+    },
+    {
+      "price": 3990,
+      "timestamp": "2025-04-14T04:44:28",
+      "type": "sale"
+    },
+    {
+      "price": 4500,
+      "timestamp": "2025-04-12T18:40:29",
+      "type": "sale"
+    },
+    {
+      "price": 4600,
+      "timestamp": "2025-04-12T18:38:49",
+      "type": "sale"
+    },
+    {
+      "price": 4500,
+      "timestamp": "2025-04-12T18:38:49",
+      "type": "sale"
+    },
+    {
+      "price": 4400,
+      "timestamp": "2025-04-12T18:37:09",
+      "type": "sale"
     }
   ],
   "Zee Core": [
@@ -110,12 +155,22 @@
       "price": 300,
       "timestamp": "2025-04-11T19:29:45",
       "type": "sale"
+    },
+    {
+      "price": 500,
+      "timestamp": "2025-04-12T03:34:46",
+      "type": "sale"
     }
   ],
   "Unstable Core": [
     {
       "price": 300,
       "timestamp": "2025-04-11T19:29:45",
+      "type": "sale"
+    },
+    {
+      "price": 300,
+      "timestamp": "2025-04-12T07:24:28",
       "type": "sale"
     }
   ],
@@ -130,6 +185,16 @@
     {
       "price": 200,
       "timestamp": "2025-04-11T19:26:25",
+      "type": "sale"
+    },
+    {
+      "price": 200,
+      "timestamp": "2025-04-12T07:40:30",
+      "type": "sale"
+    },
+    {
+      "price": 200,
+      "timestamp": "2025-04-12T07:39:46",
       "type": "sale"
     }
   ],
@@ -152,6 +217,11 @@
       "price": 14000,
       "timestamp": "2025-04-11T08:01:47",
       "type": "sale"
+    },
+    {
+      "price": 14000,
+      "timestamp": "2025-04-12T05:27:10",
+      "type": "sale"
     }
   ],
   "Platinum Lockbox": [
@@ -164,6 +234,21 @@
       "price": 15000,
       "timestamp": "2025-04-10T20:38:05",
       "type": "sale"
+    },
+    {
+      "price": 10000,
+      "timestamp": "2025-04-13T23:52:48",
+      "type": "sale"
+    },
+    {
+      "price": 10000,
+      "timestamp": "2025-04-13T03:10:29",
+      "type": "sale"
+    },
+    {
+      "price": 17500,
+      "timestamp": "2025-04-13T01:50:29",
+      "type": "sale"
     }
   ],
   "Philoso Feather": [
@@ -171,12 +256,22 @@
       "price": 699,
       "timestamp": "2025-04-11T07:43:27",
       "type": "sale"
+    },
+    {
+      "price": 699,
+      "timestamp": "2025-04-12T11:27:11",
+      "type": "sale"
     }
   ],
   "Power Star x10": [
     {
       "price": 25000,
       "timestamp": "2025-04-11T04:10:07",
+      "type": "sale"
+    },
+    {
+      "price": 22222,
+      "timestamp": "2025-04-12T12:21:27",
       "type": "sale"
     }
   ],
@@ -260,6 +355,11 @@
       "price": 7000,
       "timestamp": "2025-04-10T22:00:06",
       "type": "sale"
+    },
+    {
+      "price": 2800,
+      "timestamp": "2025-04-11T23:57:48",
+      "type": "sale"
     }
   ],
   "Divine Orb x10": [
@@ -273,6 +373,11 @@
     {
       "price": 12500,
       "timestamp": "2025-04-10T20:21:25",
+      "type": "sale"
+    },
+    {
+      "price": 12700,
+      "timestamp": "2025-04-12T02:52:09",
       "type": "sale"
     }
   ],
@@ -302,12 +407,1128 @@
       "price": 100000,
       "timestamp": "2025-04-10T17:31:27",
       "type": "sale"
+    },
+    {
+      "price": 33000,
+      "timestamp": "2025-04-11T23:28:48",
+      "type": "sale"
     }
   ],
   "Fine Fabric": [
     {
       "price": 999,
       "timestamp": "2025-04-10T16:34:46",
+      "type": "sale"
+    },
+    {
+      "price": 500,
+      "timestamp": "2025-04-11T21:43:48",
+      "type": "sale"
+    }
+  ],
+  "Shadow Mote": [
+    {
+      "price": 150,
+      "timestamp": "2025-04-14T07:46:09",
+      "type": "sale"
+    },
+    {
+      "price": 150,
+      "timestamp": "2025-04-12T18:18:48",
+      "type": "sale"
+    }
+  ],
+  "Frosty Scale Mail": [
+    {
+      "price": 1800,
+      "timestamp": "2025-04-14T07:16:09",
+      "type": "sale"
+    }
+  ],
+  "Advanced Orb of Alchemy": [
+    {
+      "price": 4500,
+      "timestamp": "2025-04-14T02:09:28",
+      "type": "sale"
+    },
+    {
+      "price": 4500,
+      "timestamp": "2025-04-13T17:24:28",
+      "type": "sale"
+    },
+    {
+      "price": 4500,
+      "timestamp": "2025-04-12T18:25:28",
+      "type": "sale"
+    },
+    {
+      "price": 5000,
+      "timestamp": "2025-04-12T07:00:30",
+      "type": "sale"
+    }
+  ],
+  "Schemer Scrap": [
+    {
+      "price": 10000,
+      "timestamp": "2025-04-14T01:49:28",
+      "type": "sale"
+    }
+  ],
+  "Stellar Sentinel Helm": [
+    {
+      "price": 30000,
+      "timestamp": "2025-04-13T23:07:48",
+      "type": "sale"
+    },
+    {
+      "price": 26000,
+      "timestamp": "2025-04-12T07:47:48",
+      "type": "sale"
+    },
+    {
+      "price": 30000,
+      "timestamp": "2025-04-11T23:28:48",
+      "type": "sale"
+    }
+  ],
+  "Dusky Stranger Robe": [
+    {
+      "price": 40000,
+      "timestamp": "2025-04-13T18:57:48",
+      "type": "sale"
+    }
+  ],
+  "Kilowatt Pulsar Recipe": [
+    {
+      "price": 7000,
+      "timestamp": "2025-04-13T17:36:08",
+      "type": "sale"
+    },
+    {
+      "price": 10000,
+      "timestamp": "2025-04-11T22:08:48",
+      "type": "sale"
+    }
+  ],
+  "Flawed Orb of Alchemy x3": [
+    {
+      "price": 1300,
+      "timestamp": "2025-04-13T17:22:49",
+      "type": "sale"
+    }
+  ],
+  "Toasty Node Slime Guards": [
+    {
+      "price": 5000,
+      "timestamp": "2025-04-13T17:14:28",
+      "type": "sale"
+    }
+  ],
+  "Military Field Cap": [
+    {
+      "price": 2000,
+      "timestamp": "2025-04-13T17:14:28",
+      "type": "sale"
+    }
+  ],
+  "Regal Plumed Cap": [
+    {
+      "price": 2000,
+      "timestamp": "2025-04-13T17:14:28",
+      "type": "sale"
+    }
+  ],
+  "Military Node Slime Mask": [
+    {
+      "price": 5000,
+      "timestamp": "2025-04-13T16:52:10",
+      "type": "sale"
+    }
+  ],
+  "Monster Bone": [
+    {
+      "price": 200,
+      "timestamp": "2025-04-13T16:33:50",
+      "type": "sale"
+    },
+    {
+      "price": 299,
+      "timestamp": "2025-04-13T15:52:10",
+      "type": "sale"
+    },
+    {
+      "price": 299,
+      "timestamp": "2025-04-13T04:42:10",
+      "type": "sale"
+    },
+    {
+      "price": 200,
+      "timestamp": "2025-04-12T03:37:10",
+      "type": "sale"
+    }
+  ],
+  "Mega Tundrus Recipe": [
+    {
+      "price": 15000,
+      "timestamp": "2025-04-13T12:48:50",
+      "type": "sale"
+    },
+    {
+      "price": 12000,
+      "timestamp": "2025-04-11T20:45:28",
+      "type": "sale"
+    }
+  ],
+  "Gigawatt Pulsar Recipe": [
+    {
+      "price": 14500,
+      "timestamp": "2025-04-13T12:48:50",
+      "type": "sale"
+    }
+  ],
+  "Winter Grave Recipe": [
+    {
+      "price": 35000,
+      "timestamp": "2025-04-13T12:48:50",
+      "type": "sale"
+    }
+  ],
+  "Dangerous Oni Helm": [
+    {
+      "price": 90000,
+      "timestamp": "2025-04-13T10:55:30",
+      "type": "sale"
+    }
+  ],
+  "Dangerous Ribbon": [
+    {
+      "price": 40000,
+      "timestamp": "2025-04-13T10:53:50",
+      "type": "sale"
+    }
+  ],
+  "Dangerous Mohawk": [
+    {
+      "price": 100000,
+      "timestamp": "2025-04-13T10:48:50",
+      "type": "sale"
+    }
+  ],
+  "Fusion Blaster Recipe": [
+    {
+      "price": 12345,
+      "timestamp": "2025-04-13T08:00:30",
+      "type": "sale"
+    }
+  ],
+  "Shadow Mote x9": [
+    {
+      "price": 800,
+      "timestamp": "2025-04-13T06:43:50",
+      "type": "sale"
+    }
+  ],
+  "Blighted Bone": [
+    {
+      "price": 400,
+      "timestamp": "2025-04-13T06:18:50",
+      "type": "sale"
+    }
+  ],
+  "Electron Vortex": [
+    {
+      "price": 499999,
+      "timestamp": "2025-04-13T05:29:29",
+      "type": "sale"
+    }
+  ],
+  "Avenger Recipe": [
+    {
+      "price": 9999,
+      "timestamp": "2025-04-13T05:08:49",
+      "type": "sale"
+    }
+  ],
+  "Flame Soul": [
+    {
+      "price": 799,
+      "timestamp": "2025-04-13T04:43:49",
+      "type": "sale"
+    },
+    {
+      "price": 799,
+      "timestamp": "2025-04-12T05:33:06",
+      "type": "sale"
+    }
+  ],
+  "Primal Ore": [
+    {
+      "price": 1333,
+      "timestamp": "2025-04-13T04:42:10",
+      "type": "sale"
+    }
+  ],
+  "Tundrus Recipe": [
+    {
+      "price": 6000,
+      "timestamp": "2025-04-13T04:09:28",
+      "type": "sale"
+    },
+    {
+      "price": 8999,
+      "timestamp": "2025-04-12T23:42:08",
+      "type": "sale"
+    }
+  ],
+  "Voltaic Radical Mask": [
+    {
+      "price": 320000,
+      "timestamp": "2025-04-13T03:08:49",
+      "type": "sale"
+    }
+  ],
+  "Volcanic Knight Vision Goggles": [
+    {
+      "price": 50000,
+      "timestamp": "2025-04-13T02:58:49",
+      "type": "sale"
+    }
+  ],
+  "Nightmare Mane": [
+    {
+      "price": 11000,
+      "timestamp": "2025-04-13T02:49:28",
+      "type": "sale"
+    },
+    {
+      "price": 11000,
+      "timestamp": "2025-04-12T01:09:27",
+      "type": "sale"
+    }
+  ],
+  "Celestial Ore": [
+    {
+      "price": 10000,
+      "timestamp": "2025-04-13T02:47:48",
+      "type": "sale"
+    }
+  ],
+  "Brandish": [
+    {
+      "price": 1111,
+      "timestamp": "2025-04-13T02:38:49",
+      "type": "sale"
+    },
+    {
+      "price": 35000,
+      "timestamp": "2025-04-12T20:40:28",
+      "type": "sale"
+    },
+    {
+      "price": 1350,
+      "timestamp": "2025-04-12T13:02:10",
+      "type": "sale"
+    },
+    {
+      "price": 1400,
+      "timestamp": "2025-04-12T13:01:27",
+      "type": "sale"
+    },
+    {
+      "price": 1250,
+      "timestamp": "2025-04-12T12:59:47",
+      "type": "sale"
+    },
+    {
+      "price": 2999,
+      "timestamp": "2025-04-12T04:39:46",
+      "type": "sale"
+    },
+    {
+      "price": 70000,
+      "timestamp": "2025-04-12T04:29:28",
+      "type": "sale"
+    }
+  ],
+  "Magic Hood": [
+    {
+      "price": 2555,
+      "timestamp": "2025-04-13T02:37:09",
+      "type": "sale"
+    },
+    {
+      "price": 1500,
+      "timestamp": "2025-04-13T00:39:28",
+      "type": "sale"
+    }
+  ],
+  "Wolver Cap": [
+    {
+      "price": 2555,
+      "timestamp": "2025-04-13T02:37:09",
+      "type": "sale"
+    },
+    {
+      "price": 3999,
+      "timestamp": "2025-04-13T02:37:09",
+      "type": "sale"
+    }
+  ],
+  "Wolver Coat": [
+    {
+      "price": 3999,
+      "timestamp": "2025-04-13T02:37:09",
+      "type": "sale"
+    }
+  ],
+  "Power Stone x5": [
+    {
+      "price": 7500,
+      "timestamp": "2025-04-13T02:22:48",
+      "type": "sale"
+    }
+  ],
+  "Tundrus": [
+    {
+      "price": 14000,
+      "timestamp": "2025-04-13T02:12:09",
+      "type": "sale"
+    },
+    {
+      "price": 12000,
+      "timestamp": "2025-04-12T02:06:26",
+      "type": "sale"
+    }
+  ],
+  "Grinchlin Snowball": [
+    {
+      "price": 666,
+      "timestamp": "2025-04-13T01:22:48",
+      "type": "sale"
+    },
+    {
+      "price": 666,
+      "timestamp": "2025-04-13T01:20:28",
+      "type": "sale"
+    },
+    {
+      "price": 666,
+      "timestamp": "2025-04-13T01:17:08",
+      "type": "sale"
+    },
+    {
+      "price": 666,
+      "timestamp": "2025-04-13T01:16:08",
+      "type": "sale"
+    }
+  ],
+  "Sprinkle Aura": [
+    {
+      "price": 216888,
+      "timestamp": "2025-04-13T01:13:48",
+      "type": "sale"
+    }
+  ],
+  "Elite Orb of Alchemy": [
+    {
+      "price": 7000,
+      "timestamp": "2025-04-13T00:42:48",
+      "type": "sale"
+    },
+    {
+      "price": 9000,
+      "timestamp": "2025-04-12T06:58:50",
+      "type": "sale"
+    }
+  ],
+  "Shadow Blaster Recipe": [
+    {
+      "price": 6000,
+      "timestamp": "2025-04-12T22:30:28",
+      "type": "sale"
+    }
+  ],
+  "Elemental Blaster Recipe": [
+    {
+      "price": 10000,
+      "timestamp": "2025-04-12T22:00:28",
+      "type": "sale"
+    }
+  ],
+  "Shadow Orb x3": [
+    {
+      "price": 4500,
+      "timestamp": "2025-04-12T18:41:08",
+      "type": "sale"
+    }
+  ],
+  "Power Mote": [
+    {
+      "price": 150,
+      "timestamp": "2025-04-12T18:20:28",
+      "type": "sale"
+    },
+    {
+      "price": 150,
+      "timestamp": "2025-04-12T18:18:48",
+      "type": "sale"
+    }
+  ],
+  "QQQ Slime Lockbox": [
+    {
+      "price": 14998,
+      "timestamp": "2025-04-12T15:01:27",
+      "type": "sale"
+    },
+    {
+      "price": 13998,
+      "timestamp": "2025-04-12T15:01:27",
+      "type": "sale"
+    },
+    {
+      "price": 11998,
+      "timestamp": "2025-04-12T15:01:27",
+      "type": "sale"
+    },
+    {
+      "price": 11000,
+      "timestamp": "2025-04-12T01:17:08",
+      "type": "sale"
+    },
+    {
+      "price": 11100,
+      "timestamp": "2025-04-12T01:17:08",
+      "type": "sale"
+    },
+    {
+      "price": 11000,
+      "timestamp": "2025-04-12T01:15:28",
+      "type": "sale"
+    }
+  ],
+  "Blazing Pulsar Recipe": [
+    {
+      "price": 12000,
+      "timestamp": "2025-04-12T14:08:07",
+      "type": "sale"
+    }
+  ],
+  "Crest of Winter": [
+    {
+      "price": 69696,
+      "timestamp": "2025-04-12T12:33:06",
+      "type": "sale"
+    }
+  ],
+  "Haunted Aura": [
+    {
+      "price": 69696,
+      "timestamp": "2025-04-12T11:28:50",
+      "type": "sale"
+    }
+  ],
+  "Shadow Steel": [
+    {
+      "price": 1333,
+      "timestamp": "2025-04-12T11:20:30",
+      "type": "sale"
+    }
+  ],
+  "Shockburst Brandish": [
+    {
+      "price": 14000,
+      "timestamp": "2025-04-12T11:06:27",
+      "type": "sale"
+    }
+  ],
+  "Circuit Breaker Helm Recipe": [
+    {
+      "price": 400,
+      "timestamp": "2025-04-12T10:56:27",
+      "type": "sale"
+    }
+  ],
+  "Bolted Blade Recipe": [
+    {
+      "price": 100,
+      "timestamp": "2025-04-12T10:56:09",
+      "type": "sale"
+    }
+  ],
+  "Seraphynx Pod (Black Kat)": [
+    {
+      "price": 240000,
+      "timestamp": "2025-04-12T10:33:50",
+      "type": "sale"
+    }
+  ],
+  "Dark Thorn Shield Recipe": [
+    {
+      "price": 15000,
+      "timestamp": "2025-04-12T10:22:49",
+      "type": "sale"
+    },
+    {
+      "price": 15000,
+      "timestamp": "2025-04-12T08:58:51",
+      "type": "sale"
+    },
+    {
+      "price": 13500,
+      "timestamp": "2025-04-11T21:32:08",
+      "type": "sale"
+    }
+  ],
+  "Black Chaingun Recipe": [
+    {
+      "price": 16000,
+      "timestamp": "2025-04-12T10:22:49",
+      "type": "sale"
+    }
+  ],
+  "Bucket of Flawed Snowballs": [
+    {
+      "price": 30000,
+      "timestamp": "2025-04-12T09:50:30",
+      "type": "sale"
+    }
+  ],
+  "Imperial Tricorne": [
+    {
+      "price": 75000,
+      "timestamp": "2025-04-12T08:54:29",
+      "type": "sale"
+    }
+  ],
+  "Frost Gun": [
+    {
+      "price": 1100,
+      "timestamp": "2025-04-12T08:51:27",
+      "type": "sale"
+    }
+  ],
+  "Crystal Bomb": [
+    {
+      "price": 2000,
+      "timestamp": "2025-04-12T08:51:27",
+      "type": "sale"
+    }
+  ],
+  "Fiery Vaporizer": [
+    {
+      "price": 2000,
+      "timestamp": "2025-04-12T08:51:08",
+      "type": "sale"
+    }
+  ],
+  "Dark Matter Bomb": [
+    {
+      "price": 2200,
+      "timestamp": "2025-04-12T08:49:47",
+      "type": "sale"
+    }
+  ],
+  "Diamond Round Helm": [
+    {
+      "price": 20000,
+      "timestamp": "2025-04-12T08:32:11",
+      "type": "sale"
+    }
+  ],
+  "Regal Grand Topper": [
+    {
+      "price": 5000,
+      "timestamp": "2025-04-12T08:14:28",
+      "type": "sale"
+    }
+  ],
+  "Peridot Lucky Topper": [
+    {
+      "price": 55555,
+      "timestamp": "2025-04-12T08:07:11",
+      "type": "sale"
+    }
+  ],
+  "Hunter Lapel Clover": [
+    {
+      "price": 24444,
+      "timestamp": "2025-04-12T08:06:08",
+      "type": "sale"
+    }
+  ],
+  "Heavy Node Receiver": [
+    {
+      "price": 33333,
+      "timestamp": "2025-04-12T08:05:30",
+      "type": "sale"
+    }
+  ],
+  "Dusky Tailspin": [
+    {
+      "price": 88888,
+      "timestamp": "2025-04-12T08:04:46",
+      "type": "sale"
+    }
+  ],
+  "Dazed Lumberfell Beard": [
+    {
+      "price": 55555,
+      "timestamp": "2025-04-12T08:04:28",
+      "type": "sale"
+    }
+  ],
+  "Celestial Plume": [
+    {
+      "price": 77777,
+      "timestamp": "2025-04-12T08:03:50",
+      "type": "sale"
+    },
+    {
+      "price": 50000,
+      "timestamp": "2025-04-12T07:38:50",
+      "type": "sale"
+    }
+  ],
+  "Divine Stone x10": [
+    {
+      "price": 7500,
+      "timestamp": "2025-04-12T07:53:50",
+      "type": "sale"
+    }
+  ],
+  "Celestial Spike Mohawk": [
+    {
+      "price": 15700,
+      "timestamp": "2025-04-12T07:48:50",
+      "type": "sale"
+    }
+  ],
+  "Galactic Guardian Helm": [
+    {
+      "price": 25000,
+      "timestamp": "2025-04-12T07:47:48",
+      "type": "sale"
+    }
+  ],
+  "Celestial Nav Suit": [
+    {
+      "price": 25000,
+      "timestamp": "2025-04-12T07:47:10",
+      "type": "sale"
+    }
+  ],
+  "Stellar Sentinel Suit": [
+    {
+      "price": 26000,
+      "timestamp": "2025-04-12T07:47:10",
+      "type": "sale"
+    }
+  ],
+  "Divine Node Slime Mask": [
+    {
+      "price": 9000,
+      "timestamp": "2025-04-12T07:46:27",
+      "type": "sale"
+    }
+  ],
+  "Miracloth x5": [
+    {
+      "price": 4000,
+      "timestamp": "2025-04-12T07:44:28",
+      "type": "sale"
+    }
+  ],
+  "Vile Raiment": [
+    {
+      "price": 149222,
+      "timestamp": "2025-04-12T07:18:50",
+      "type": "sale"
+    }
+  ],
+  "Electric Fur Coat": [
+    {
+      "price": 199199,
+      "timestamp": "2025-04-12T07:18:06",
+      "type": "sale"
+    }
+  ],
+  "Winter Raider Tunic": [
+    {
+      "price": 199999,
+      "timestamp": "2025-04-12T07:11:26",
+      "type": "sale"
+    }
+  ],
+  "Shadow Stone x3": [
+    {
+      "price": 2990,
+      "timestamp": "2025-04-12T05:34:46",
+      "type": "sale"
+    }
+  ],
+  "Autogun": [
+    {
+      "price": 126000,
+      "timestamp": "2025-04-12T05:27:49",
+      "type": "sale"
+    },
+    {
+      "price": 15545,
+      "timestamp": "2025-04-12T05:21:08",
+      "type": "sale"
+    },
+    {
+      "price": 12945,
+      "timestamp": "2025-04-12T05:19:28",
+      "type": "sale"
+    },
+    {
+      "price": 760,
+      "timestamp": "2025-04-12T04:26:08",
+      "type": "sale"
+    },
+    {
+      "price": 1060,
+      "timestamp": "2025-04-12T03:41:08",
+      "type": "sale"
+    },
+    {
+      "price": 890,
+      "timestamp": "2025-04-12T03:37:49",
+      "type": "sale"
+    },
+    {
+      "price": 930,
+      "timestamp": "2025-04-12T03:37:49",
+      "type": "sale"
+    },
+    {
+      "price": 520,
+      "timestamp": "2025-04-12T03:31:09",
+      "type": "sale"
+    },
+    {
+      "price": 520,
+      "timestamp": "2025-04-12T03:27:49",
+      "type": "sale"
+    }
+  ],
+  "Blaster": [
+    {
+      "price": 10000,
+      "timestamp": "2025-04-12T05:21:08",
+      "type": "sale"
+    },
+    {
+      "price": 84000,
+      "timestamp": "2025-04-12T05:21:08",
+      "type": "sale"
+    }
+  ],
+  "Breach Blaster Recipe": [
+    {
+      "price": 14000,
+      "timestamp": "2025-04-12T05:11:08",
+      "type": "sale"
+    }
+  ],
+  "Maiden's Tear": [
+    {
+      "price": 11000,
+      "timestamp": "2025-04-12T04:16:26",
+      "type": "sale"
+    }
+  ],
+  "Gold Lockbox": [
+    {
+      "price": 4400,
+      "timestamp": "2025-04-12T04:11:08",
+      "type": "sale"
+    }
+  ],
+  "Spiral Demo Suit Recipe": [
+    {
+      "price": 560,
+      "timestamp": "2025-04-12T03:50:29",
+      "type": "sale"
+    }
+  ],
+  "Carabiner": [
+    {
+      "price": 150000,
+      "timestamp": "2025-04-12T03:49:28",
+      "type": "sale"
+    }
+  ],
+  "Brute Core": [
+    {
+      "price": 200,
+      "timestamp": "2025-04-12T03:41:08",
+      "type": "sale"
+    }
+  ],
+  "Mug of Misery": [
+    {
+      "price": 400,
+      "timestamp": "2025-04-12T03:41:08",
+      "type": "sale"
+    }
+  ],
+  "Dead Gold": [
+    {
+      "price": 200,
+      "timestamp": "2025-04-12T03:41:08",
+      "type": "sale"
+    }
+  ],
+  "Rocket Sprocket": [
+    {
+      "price": 200,
+      "timestamp": "2025-04-12T03:41:08",
+      "type": "sale"
+    },
+    {
+      "price": 200,
+      "timestamp": "2025-04-11T21:51:08",
+      "type": "sale"
+    },
+    {
+      "price": 200,
+      "timestamp": "2025-04-11T21:42:48",
+      "type": "sale"
+    }
+  ],
+  "Hallow Binocular Visor": [
+    {
+      "price": 3000,
+      "timestamp": "2025-04-12T03:37:48",
+      "type": "sale"
+    }
+  ],
+  "Hallow Tailed Helm": [
+    {
+      "price": 6000,
+      "timestamp": "2025-04-12T03:35:29",
+      "type": "sale"
+    }
+  ],
+  "Meteor Mote": [
+    {
+      "price": 500,
+      "timestamp": "2025-04-12T03:33:49",
+      "type": "sale"
+    }
+  ],
+  "Silver Coil": [
+    {
+      "price": 400,
+      "timestamp": "2025-04-12T03:26:08",
+      "type": "sale"
+    }
+  ],
+  "Wildfire Recipe": [
+    {
+      "price": 30000,
+      "timestamp": "2025-04-12T03:22:48",
+      "type": "sale"
+    }
+  ],
+  "Crest of Ur": [
+    {
+      "price": 100000,
+      "timestamp": "2025-04-12T02:59:28",
+      "type": "sale"
+    },
+    {
+      "price": 3000,
+      "timestamp": "2025-04-12T02:31:07",
+      "type": "sale"
+    }
+  ],
+  "Trinket Slot Upgrade (30 days)": [
+    {
+      "price": 6900,
+      "timestamp": "2025-04-12T02:59:28",
+      "type": "sale"
+    }
+  ],
+  "Shadow Orb": [
+    {
+      "price": 1500,
+      "timestamp": "2025-04-12T02:49:46",
+      "type": "sale"
+    }
+  ],
+  "Shadow Star": [
+    {
+      "price": 2000,
+      "timestamp": "2025-04-12T02:48:49",
+      "type": "sale"
+    }
+  ],
+  "Shadow Orb x2": [
+    {
+      "price": 2200,
+      "timestamp": "2025-04-12T02:46:26",
+      "type": "sale"
+    }
+  ],
+  "Elemental Blaster": [
+    {
+      "price": 29999,
+      "timestamp": "2025-04-12T02:43:49",
+      "type": "sale"
+    }
+  ],
+  "Pierce Blaster Recipe": [
+    {
+      "price": 6500,
+      "timestamp": "2025-04-12T02:07:09",
+      "type": "sale"
+    }
+  ],
+  "Voltech Alchemer": [
+    {
+      "price": 7500,
+      "timestamp": "2025-04-12T02:06:26",
+      "type": "sale"
+    }
+  ],
+  "Hallow Sallet": [
+    {
+      "price": 1000,
+      "timestamp": "2025-04-12T02:03:06",
+      "type": "sale"
+    }
+  ],
+  "Hallow Cuirass": [
+    {
+      "price": 1500,
+      "timestamp": "2025-04-12T02:02:48",
+      "type": "sale"
+    }
+  ],
+  "Autumn Cuirass": [
+    {
+      "price": 15000,
+      "timestamp": "2025-04-12T02:00:29",
+      "type": "sale"
+    }
+  ],
+  "Late Harvest Culet": [
+    {
+      "price": 15000,
+      "timestamp": "2025-04-12T01:59:28",
+      "type": "sale"
+    }
+  ],
+  "Power Star": [
+    {
+      "price": 5000,
+      "timestamp": "2025-04-12T01:42:48",
+      "type": "sale"
+    }
+  ],
+  "Everfrost": [
+    {
+      "price": 2000,
+      "timestamp": "2025-04-12T01:42:09",
+      "type": "sale"
+    }
+  ],
+  "Kat Tribe Fetish": [
+    {
+      "price": 7000,
+      "timestamp": "2025-04-12T01:08:48",
+      "type": "sale"
+    },
+    {
+      "price": 7000,
+      "timestamp": "2025-04-12T01:07:48",
+      "type": "sale"
+    }
+  ],
+  "Dusky Knight Vision Goggles": [
+    {
+      "price": 2500,
+      "timestamp": "2025-04-12T00:13:48",
+      "type": "sale"
+    }
+  ],
+  "Volcanic Node Container": [
+    {
+      "price": 70000,
+      "timestamp": "2025-04-12T00:12:08",
+      "type": "sale"
+    }
+  ],
+  "Cool Node Container": [
+    {
+      "price": 25000,
+      "timestamp": "2025-04-12T00:09:46",
+      "type": "sale"
+    }
+  ],
+  "Fancy Node Slime Guards": [
+    {
+      "price": 3000,
+      "timestamp": "2025-04-11T23:57:48",
+      "type": "sale"
+    }
+  ],
+  "Cool Node Slime Guards": [
+    {
+      "price": 2700,
+      "timestamp": "2025-04-11T23:57:48",
+      "type": "sale"
+    }
+  ],
+  "Warp Dust": [
+    {
+      "price": 500,
+      "timestamp": "2025-04-11T23:37:48",
+      "type": "sale"
+    }
+  ],
+  "Celestial Saber": [
+    {
+      "price": 700000,
+      "timestamp": "2025-04-11T23:32:48",
+      "type": "sale"
+    }
+  ],
+  "Autumn Culet": [
+    {
+      "price": 10000,
+      "timestamp": "2025-04-11T22:39:27",
+      "type": "sale"
+    }
+  ],
+  "Red Shard x10": [
+    {
+      "price": 250,
+      "timestamp": "2025-04-11T21:45:28",
+      "type": "sale"
+    }
+  ],
+  "Blue Shard x10": [
+    {
+      "price": 400,
+      "timestamp": "2025-04-11T21:44:46",
+      "type": "sale"
+    }
+  ],
+  "Mega Magnus Recipe": [
+    {
+      "price": 9000,
+      "timestamp": "2025-04-11T21:31:08",
+      "type": "sale"
+    }
+  ],
+  "Amethyst Scale Helm": [
+    {
+      "price": 79999,
+      "timestamp": "2025-04-11T20:54:27",
       "type": "sale"
     }
   ]
