@@ -153,5 +153,162 @@
       "timestamp": "2025-04-11T08:01:47",
       "type": "sale"
     }
+  ],
+  "Platinum Lockbox": [
+    {
+      "price": 15000,
+      "timestamp": "2025-04-11T21:26:26",
+      "type": "sale"
+    },
+    {
+      "price": 15000,
+      "timestamp": "2025-04-10T20:38:05",
+      "type": "sale"
+    }
+  ],
+  "Philoso Feather": [
+    {
+      "price": 699,
+      "timestamp": "2025-04-11T07:43:27",
+      "type": "sale"
+    }
+  ],
+  "Power Star x10": [
+    {
+      "price": 25000,
+      "timestamp": "2025-04-11T04:10:07",
+      "type": "sale"
+    }
+  ],
+  "Raptor Recipe": [
+    {
+      "price": 17990,
+      "timestamp": "2025-04-11T01:43:27",
+      "type": "sale"
+    }
+  ],
+  "Reaper Rib": [
+    {
+      "price": 500,
+      "timestamp": "2025-04-11T01:33:27",
+      "type": "sale"
+    }
+  ],
+  "Silverweave": [
+    {
+      "price": 500,
+      "timestamp": "2025-04-11T01:33:06",
+      "type": "sale"
+    }
+  ],
+  "Military Stranger Hat": [
+    {
+      "price": 60000,
+      "timestamp": "2025-04-10T23:43:26",
+      "type": "sale"
+    }
+  ],
+  "Steel Lockbox": [
+    {
+      "price": 10000,
+      "timestamp": "2025-04-10T23:34:46",
+      "type": "sale"
+    }
+  ],
+  "Mod Calibrator": [
+    {
+      "price": 24000,
+      "timestamp": "2025-04-10T23:34:46",
+      "type": "sale"
+    }
+  ],
+  "Toxic Catalyzer Recipe": [
+    {
+      "price": 6000,
+      "timestamp": "2025-04-10T22:40:07",
+      "type": "sale"
+    }
+  ],
+  "Divine Mote x10": [
+    {
+      "price": 1200,
+      "timestamp": "2025-04-10T22:40:07",
+      "type": "sale"
+    },
+    {
+      "price": 1200,
+      "timestamp": "2025-04-10T22:39:46",
+      "type": "sale"
+    }
+  ],
+  "Twisted Targe Recipe": [
+    {
+      "price": 8000,
+      "timestamp": "2025-04-10T22:03:26",
+      "type": "sale"
+    }
+  ],
+  "Regal Node Slime Guards": [
+    {
+      "price": 7000,
+      "timestamp": "2025-04-10T22:01:26",
+      "type": "sale"
+    }
+  ],
+  "Dusky Node Slime Guards": [
+    {
+      "price": 7000,
+      "timestamp": "2025-04-10T22:00:06",
+      "type": "sale"
+    }
+  ],
+  "Divine Orb x10": [
+    {
+      "price": 14999,
+      "timestamp": "2025-04-10T20:29:45",
+      "type": "sale"
+    }
+  ],
+  "Weapon Slot Upgrade (30 days)": [
+    {
+      "price": 12500,
+      "timestamp": "2025-04-10T20:21:25",
+      "type": "sale"
+    }
+  ],
+  "Hallow Targeting Module": [
+    {
+      "price": 1100,
+      "timestamp": "2025-04-10T19:57:09",
+      "type": "sale"
+    }
+  ],
+  "Hot Edge": [
+    {
+      "price": 5000,
+      "timestamp": "2025-04-10T19:04:45",
+      "type": "sale"
+    }
+  ],
+  "Celestial Bolted Vee": [
+    {
+      "price": 2200,
+      "timestamp": "2025-04-10T19:03:05",
+      "type": "sale"
+    }
+  ],
+  "Celestial Nav Helm": [
+    {
+      "price": 100000,
+      "timestamp": "2025-04-10T17:31:27",
+      "type": "sale"
+    }
+  ],
+  "Fine Fabric": [
+    {
+      "price": 999,
+      "timestamp": "2025-04-10T16:34:46",
+      "type": "sale"
+    }
   ]
 }
