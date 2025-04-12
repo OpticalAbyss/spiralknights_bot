@@ -37,12 +37,7 @@ class SKMarketScraper:
         ch.setFormatter(formatter)
         
         log_file = os.path.join(self.logs_dir, 'sk_market_scraper.log')
-        fh = RotatingFileHandler(
-            log_file,
-            maxBytes=1024*1024,
-            backupCount=5,
-            encoding='utf-8'
-        )
+        fh = RotatingFileHandler(log_file, maxBytes=1024*1024, backupCount=5, encoding='utf-8')
         fh.setLevel(logging.DEBUG)
         fh.setFormatter(formatter)
         
@@ -83,125 +78,106 @@ class SKMarketScraper:
         self.logger.info("Scraping stop requested")
         self._stop = True
 
-    async def scrape_history_pages(self, max_pages=10):
-        async with async_playwright() as p:
-            # Enable headless mode (default) and remove slow_mo
-            browser = await p.chromium.launch(headless=True)
-            context = await browser.new_context(viewport={"width": 1280, "height": 1024})
-            
-            # Block images, stylesheets, and fonts to speed up page load.
-            await context.route("**/*", lambda route, request: route.abort() if request.resource_type in ["image", "stylesheet", "font"] else route.continue_())
-
-            page = await context.new_page()
-            
-            try:
-                self.logger.info(f"Starting history scraping (max {max_pages} pages)")
-                await page.goto(self.history_url, timeout=60000)
-                await page.wait_for_load_state("networkidle")
-                
-                current_page_num = 1
-                all_history_items = []
-                
-                while current_page_num <= max_pages:
-                    self.logger.info(f"Scraping history page {current_page_num}")
-                    
-                    try:
-                        await page.wait_for_selector("xpath=/html/body/div/main/div[2]/div/div[4]/table", timeout=15000)
-                        self.logger.debug("History table loaded")
-                    except Exception as e:
-                        self.logger.warning(f"History table not loaded on page {current_page_num}: {str(e)}")
-                        screenshot_path = f"debug_page_{current_page_num}.png"
-                        await page.screenshot(path=screenshot_path)
-                        self.logger.info(f"Screenshot saved to {screenshot_path}")
-                        break
-                    
-                    items = []
-                    retries = 3
-                    while retries > 0:
-                        try:
-                            items = await self.extract_history_items(page)
-                            if items:
-                                break
-                            else:
-                                self.logger.warning(f"No items extracted (retries left: {retries})")
-                                retries -= 1
-                                await asyncio.sleep(3)
-                        except Exception as e:
-                            self.logger.warning(f"Error extracting items (retries left: {retries}): {str(e)}")
-                            retries -= 1
-                            await asyncio.sleep(3)
-                    
-                    if not items:
-                        self.logger.info(f"No items found on page {current_page_num}, stopping")
-                        break
-                    
-                    all_history_items.extend(items)
-                    self.logger.info(f"Found {len(items)} items on page {current_page_num}")
-                    
-                    # Save progress
-                    self.process_history_items(items)
-                    self.save_item_database()
-                    
-                    # Pause/Stop controls
-                    while self._pause:
-                        await asyncio.sleep(1)
-                    if self._stop:
-                        self.logger.info("Stopping scraping as requested")
-                        break
-                    
-                    # Navigate using buttons
-                    nav_container = await page.query_selector("xpath=/html/body/div/main/div[2]/div/div[5]")
-                    if not nav_container:
-                        self.logger.info("No navigation container found; ending scraping")
-                        break
-                        
-                    page_info_elem = await nav_container.query_selector("xpath=./div/p[1]")
-                    if page_info_elem:
-                        page_text = (await page_info_elem.text_content()).strip()
-                        self.logger.info(f"Navigation info: {page_text}")
-                    
-                    next_button = await nav_container.query_selector("xpath=.//button[contains(., 'Next')]")
-                    if next_button:
-                        is_disabled = await next_button.get_attribute("disabled")
-                        if is_disabled is not None:
-                            self.logger.info("Next button is disabled; ending scraping")
-                            break
-                        await next_button.click()
-                        current_page_num += 1
-                        await asyncio.sleep(2)
-                    else:
-                        self.logger.info("Next button not found; ending scraping")
-                        break
-                
-                self.logger.info(f"Processed {len(all_history_items)} history items")
-                return all_history_items
-                
-            except Exception as e:
-                self.logger.error(f"Error during history scraping: {str(e)}", exc_info=True)
-                return None
-            finally:
-                await context.close()
-                await browser.close()
-
-    async def extract_history_items(self, page):
+    async def process_page(self, target_page: int, playwright_instance) -> list:
+        """
+        Launches a separate browser context and navigates to the target page
+        by repeatedly clicking the Next button until the displayed current
+        page number (from "Page X of Y") equals target_page.
+        """
         items = []
-        await page.wait_for_selector("xpath=/html/body/div/main/div[2]/div/div[4]/table", timeout=15000)
+        browser = playwright_instance.chromium
+        context = await browser.launch(headless=True)
+        ctx = await context.new_context(viewport={"width": 1280, "height": 1024})
+        # Block images, stylesheets, and fonts.
+        await ctx.route("**/*", lambda route, request: route.abort() if request.resource_type in ["image", "stylesheet", "font"] else route.continue_())
+        page = await ctx.new_page()
+        try:
+            await page.goto(self.history_url, timeout=60000)
+            await page.wait_for_load_state("networkidle")
+            current_page = 1
+
+            while current_page < target_page:
+                # Check for pause/stop
+                while self._pause:
+                    await asyncio.sleep(1)
+                if self._stop:
+                    self.logger.info("Stopping processing in worker.")
+                    break
+
+                # Get current page number from navigation element
+                nav_selector = "xpath=/html/body/div/main/div[2]/div/div[5]/div/p[1]"
+                page_info_elem = await page.query_selector(nav_selector)
+                if page_info_elem:
+                    page_text = (await page_info_elem.text_content()).strip()
+                    match = re.search(r'Page (\d+)', page_text)
+                    if match:
+                        current_page = int(match.group(1))
+                    else:
+                        self.logger.debug("Could not parse current page number.")
+                else:
+                    self.logger.info("Navigation element not found; worker ending.")
+                    break
+
+                if current_page >= target_page:
+                    break
+
+                # Click next button
+                nav_container = await page.query_selector("xpath=/html/body/div/main/div[2]/div/div[5]")
+                if not nav_container:
+                    self.logger.info("No navigation container found; ending worker.")
+                    break
+
+                next_button = await nav_container.query_selector("xpath=.//button[contains(., 'Next')]")
+                if next_button:
+                    is_disabled = await next_button.get_attribute("disabled")
+                    if is_disabled is not None:
+                        self.logger.info("Next button is disabled; reached end in worker.")
+                        break
+                    await next_button.click()
+                    # Wait until the page number increases.
+                    for _ in range(10):
+                        await asyncio.sleep(0.5)
+                        new_page_text = (await page.eval_on_selector(nav_selector, "el => el.textContent")).strip()
+                        match = re.search(r'Page (\d+)', new_page_text)
+                        if match:
+                            new_page = int(match.group(1))
+                            if new_page > current_page:
+                                current_page = new_page
+                                self.logger.info(f"Worker navigated to page {current_page}")
+                                break
+                else:
+                    self.logger.info("Next button not found; ending worker.")
+                    break
+
+            # Extract items from the current (target) page.
+            items = await self.extract_history_items(page)
+            self.logger.info(f"Worker processed page {target_page} and found {len(items)} items")
+            return items
+        except Exception as e:
+            self.logger.error(f"Error processing page {target_page}: {str(e)}", exc_info=True)
+            return items
+        finally:
+            await ctx.close()
+            await context.close()
+
+    async def extract_history_items(self, page) -> list:
+        items = []
+        await page.wait_for_selector("xpath=/html/body/div/main/div[2]/div/div[4]/table", timeout=8000)
         rows = await page.query_selector_all("xpath=/html/body/div/main/div[2]/div/div[4]/table/tbody/tr")
         if not rows:
             self.logger.debug("No rows found in table")
             return items
-        
+
         self.logger.debug(f"Found {len(rows)} rows to process")
         for i, row in enumerate(rows):
             try:
                 await row.scroll_into_view_if_needed()
-                
                 name_element = await row.query_selector("xpath=./td[1]//span[not(ancestor::small)]")
                 name_text = await name_element.text_content() if name_element else None
                 if not name_text:
                     self.logger.debug(f"Name not found in row {i}")
                     continue
-                
+
                 price_element = await row.query_selector("xpath=./td[2]//div[contains(@class, 'justify-end')]")
                 raw_price = await price_element.text_content() if price_element else None
                 price_str = re.sub(r"[^\d]", "", raw_price) if raw_price else ""
@@ -209,7 +185,7 @@ class SKMarketScraper:
                     self.logger.debug(f"Price not found in row {i}")
                     continue
                 price = int(price_str)
-                
+
                 date_element = await row.query_selector("xpath=./td[3]//div[contains(@class, 'justify-end')][1]")
                 time_element = await row.query_selector("xpath=./td[3]//small")
                 date_text = (await date_element.text_content()).strip() if date_element else ""
@@ -219,7 +195,7 @@ class SKMarketScraper:
                     dt = datetime.strptime(datetime_str, "%m/%d/%Y %I:%M:%S %p")
                 except ValueError:
                     dt = None
-                
+
                 item = {
                     "name": name_text.strip(),
                     "price": price,
@@ -230,7 +206,6 @@ class SKMarketScraper:
             except Exception as e:
                 self.logger.warning(f"Error processing row {i}: {str(e)}")
                 continue
-        
         return items
 
     def process_history_items(self, items):
@@ -272,23 +247,31 @@ class SKMarketScraper:
 
 async def main():
     scraper = SKMarketScraper()
-    scraper.logger.info("Starting history scraping process")
+    scraper.logger.info("Starting parallel history scraping process")
     
-    history_items = await scraper.scrape_history_pages(max_pages=10)
+    max_pages = 10  # For demonstration: process pages 1 to 10 concurrently.
+    async with async_playwright() as p:
+        tasks = [scraper.process_page(page_num, p) for page_num in range(1, max_pages+1)]
+        results = await asyncio.gather(*tasks)
     
-    if history_items:
-        scraper.save_history_snapshot(history_items)
-        if history_items:
-            first_item = history_items[0]['name']
-            stats = scraper.get_item_stats(first_item)
-            if stats:
-                scraper.logger.info(f"Stats for {first_item}:")
-                scraper.logger.info(f"  Average Price: {stats['average_price']:.2f}")
-                scraper.logger.info(f"  Median Price: {stats['median_price']:.2f}")
-                scraper.logger.info(f"  Price Range: {stats['min_price']} - {stats['max_price']}")
-                scraper.logger.info(f"  Last Sold: {stats['last_sold']}")
+    all_history_items = []
+    for page_items in results:
+        all_history_items.extend(page_items)
     
-    scraper.logger.info("History scraping process completed")
+    scraper.process_history_items(all_history_items)
+    scraper.save_history_snapshot(all_history_items)
+    
+    if all_history_items:
+        first_item = all_history_items[0]['name']
+        stats = scraper.get_item_stats(first_item)
+        if stats:
+            scraper.logger.info(f"Stats for {first_item}:")
+            scraper.logger.info(f"  Average Price: {stats['average_price']:.2f}")
+            scraper.logger.info(f"  Median Price: {stats['median_price']:.2f}")
+            scraper.logger.info(f"  Price Range: {stats['min_price']} - {stats['max_price']}")
+            scraper.logger.info(f"  Last Sold: {stats['last_sold']}")
+    
+    scraper.logger.info("Parallel history scraping process completed")
 
 if __name__ == "__main__":
     asyncio.run(main())
