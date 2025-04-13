@@ -98,7 +98,8 @@ To run each tool, simply execute the corresponding script via Python:
 - Analysis of data
 
 ### Some quick analysis I did on one of the snapshots to see the trend of QQQ Slime Lockboxes. Only for 12 days.
-![image](https://github.com/user-attachments/assets/3ef1263a-bfbd-4b7c-90ca-c05c748d670d)
+![image](https://github.com/user-attachments/assets/63d419e4-7d7b-475a-93c8-0f17a7cd7695)
+
 
 
 ## Contact
