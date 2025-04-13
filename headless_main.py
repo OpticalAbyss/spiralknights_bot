@@ -10,268 +10,228 @@ import statistics
 import logging
 from logging.handlers import RotatingFileHandler
 
-class SKMarketScraper:
-    def __init__(self):
-        self.base_url = "https://www.sk-ah.com/"
-        self.history_url = f"{self.base_url}history"
-        self.data_dir = "sk_market_data"
-        self.logs_dir = "logs"
-        os.makedirs(self.data_dir, exist_ok=True)
-        os.makedirs(self.logs_dir, exist_ok=True)
-
-        self.setup_logging()
-        self.logger = logging.getLogger('SKMarketScraper')
-        self.item_db = self.load_item_database()
-
-        # Control flags for pause/stop functionality
-        self._pause = False
-        self._stop = False
-    
-    def setup_logging(self):
-        logger = logging.getLogger('SKMarketScraper')
-        logger.setLevel(logging.DEBUG)
-        formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+# ----- Persistent Worker Function -----
+async def persistent_worker(worker_id: int, total_workers: int, total_pages: int, result_queue: asyncio.Queue, p) -> None:
+    """
+    Persistent worker that uses its own browser context to scrape pages.
+    It starts at page = worker_id (by clicking Next worker_id-1 times initially),
+    then after scraping its current page, it clicks the "Next" button
+    exactly 'total_workers' times to jump to the next page assigned to this worker.
+    The scraped data along with page numbers is put into result_queue.
+    """
+    logger = logging.getLogger("SKMarketScraper")
+    browser = p.chromium
+    context = await browser.launch(headless=True)
+    ctx = await context.new_context(viewport={"width": 1280, "height": 1024})
+    # Block images, stylesheets, and fonts.
+    await ctx.route("**/*", lambda route, request: route.abort() if request.resource_type in ["image", "stylesheet", "font"] else route.continue_())
+    page = await ctx.new_page()
+    try:
+        await page.goto("https://www.sk-ah.com/history", timeout=60000)
+        await page.wait_for_load_state("networkidle")
         
-        ch = logging.StreamHandler()
-        ch.setLevel(logging.INFO)
-        ch.setFormatter(formatter)
-        
-        log_file = os.path.join(self.logs_dir, 'sk_market_scraper.log')
-        fh = RotatingFileHandler(log_file, maxBytes=1024*1024, backupCount=5, encoding='utf-8')
-        fh.setLevel(logging.DEBUG)
-        fh.setFormatter(formatter)
-        
-        logger.addHandler(ch)
-        logger.addHandler(fh)
-    
-    def load_item_database(self):
-        db_path = os.path.join(self.data_dir, "item_database.json")
-        try:
-            if os.path.exists(db_path):
-                self.logger.info(f"Loading existing database from {db_path}")
-                with open(db_path, 'r') as f:
-                    return defaultdict(list, json.load(f))
-            self.logger.info("No existing database found, creating new one")
-            return defaultdict(list)
-        except Exception as e:
-            self.logger.error(f"Error loading database: {str(e)}")
-            return defaultdict(list)
-    
-    def save_item_database(self):
-        db_path = os.path.join(self.data_dir, "item_database.json")
-        try:
-            with open(db_path, 'w') as f:
-                json.dump(self.item_db, f, indent=2)
-            self.logger.info(f"Database successfully saved to {db_path}")
-        except Exception as e:
-            self.logger.error(f"Error saving database: {str(e)}")
-    
-    def pause_scraping(self):
-        self.logger.info("Scraping paused")
-        self._pause = True
-    
-    def resume_scraping(self):
-        self.logger.info("Scraping resumed")
-        self._pause = False
-    
-    def stop_scraping(self):
-        self.logger.info("Scraping stop requested")
-        self._stop = True
-
-    async def process_page(self, target_page: int, playwright_instance) -> list:
-        """
-        Launches a separate browser context and navigates to the target page
-        by repeatedly clicking the Next button until the displayed current
-        page number (from "Page X of Y") equals target_page.
-        """
-        items = []
-        browser = playwright_instance.chromium
-        context = await browser.launch(headless=True)
-        ctx = await context.new_context(viewport={"width": 1280, "height": 1024})
-        # Block images, stylesheets, and fonts.
-        await ctx.route("**/*", lambda route, request: route.abort() if request.resource_type in ["image", "stylesheet", "font"] else route.continue_())
-        page = await ctx.new_page()
-        try:
-            await page.goto(self.history_url, timeout=60000)
-            await page.wait_for_load_state("networkidle")
-            current_page = 1
-
-            while current_page < target_page:
-                # Check for pause/stop
-                while self._pause:
-                    await asyncio.sleep(1)
-                if self._stop:
-                    self.logger.info("Stopping processing in worker.")
-                    break
-
-                # Get current page number from navigation element
-                nav_selector = "xpath=/html/body/div/main/div[2]/div/div[5]/div/p[1]"
-                page_info_elem = await page.query_selector(nav_selector)
-                if page_info_elem:
-                    page_text = (await page_info_elem.text_content()).strip()
-                    match = re.search(r'Page (\d+)', page_text)
-                    if match:
-                        current_page = int(match.group(1))
-                    else:
-                        self.logger.debug("Could not parse current page number.")
-                else:
-                    self.logger.info("Navigation element not found; worker ending.")
-                    break
-
-                if current_page >= target_page:
-                    break
-
-                # Click next button
-                nav_container = await page.query_selector("xpath=/html/body/div/main/div[2]/div/div[5]")
-                if not nav_container:
-                    self.logger.info("No navigation container found; ending worker.")
-                    break
-
-                next_button = await nav_container.query_selector("xpath=.//button[contains(., 'Next')]")
-                if next_button:
-                    is_disabled = await next_button.get_attribute("disabled")
-                    if is_disabled is not None:
-                        self.logger.info("Next button is disabled; reached end in worker.")
+        # Navigate to worker's starting page.
+        nav_page_selector = "xpath=/html/body/div/main/div[2]/div/div[5]/div/p[1]"
+        current_page = 1
+        while current_page < worker_id:
+            nav_container = await page.query_selector("xpath=/html/body/div/main/div[2]/div/div[5]")
+            next_button = await nav_container.query_selector("xpath=.//button[contains(., 'Next')]")
+            if not next_button:
+                logger.info(f"Worker {worker_id}: Next button not found while initializing.")
+                break
+            await next_button.click()
+            for _ in range(10):
+                await asyncio.sleep(0.5)
+                text = (await page.eval_on_selector(nav_page_selector, "el => el.textContent")).strip()
+                m = re.search(r'Page (\d+)', text)
+                if m:
+                    new_page = int(m.group(1))
+                    if new_page > current_page:
+                        current_page = new_page
                         break
-                    await next_button.click()
-                    # Wait until the page number increases.
-                    for _ in range(10):
-                        await asyncio.sleep(0.5)
-                        new_page_text = (await page.eval_on_selector(nav_selector, "el => el.textContent")).strip()
-                        match = re.search(r'Page (\d+)', new_page_text)
-                        if match:
-                            new_page = int(match.group(1))
-                            if new_page > current_page:
-                                current_page = new_page
-                                self.logger.info(f"Worker navigated to page {current_page}")
-                                break
-                else:
-                    self.logger.info("Next button not found; ending worker.")
-                    break
+        logger.info(f"Worker {worker_id} starting at page {current_page}")
+        
+        # Process pages assigned to this worker.
+        while current_page <= total_pages:
+            # Extract data from current page.
+            items = await extract_history_items(page)
+            # Even if items is empty, put a result so the main loop knows a page was processed.
+            await result_queue.put((current_page, items))
+            logger.info(f"Worker {worker_id} scraped page {current_page} with {len(items)} items")
+            
+            # Determine next target page.
+            next_target = current_page + total_workers
+            if next_target > total_pages:
+                logger.info(f"Worker {worker_id}: Next target {next_target} exceeds total_pages {total_pages}. Ending worker.")
+                break
+            
+            # Click Next repeatedly until we reach the desired page.
+            while current_page < next_target:
+                nav_container = await page.query_selector("xpath=/html/body/div/main/div[2]/div/div[5]")
+                next_button = await nav_container.query_selector("xpath=.//button[contains(., 'Next')]")
+                if not next_button:
+                    logger.info(f"Worker {worker_id}: Next button not found. Ending worker.")
+                    return
+                is_disabled = await next_button.get_attribute("disabled")
+                if is_disabled is not None:
+                    logger.info(f"Worker {worker_id}: Next button disabled. Ending worker.")
+                    return
+                await next_button.click()
+                for _ in range(10):
+                    await asyncio.sleep(0.5)
+                    text = (await page.eval_on_selector(nav_page_selector, "el => el.textContent")).strip()
+                    m = re.search(r'Page (\d+)', text)
+                    if m:
+                        new_page = int(m.group(1))
+                        if new_page > current_page:
+                            current_page = new_page
+                            logger.info(f"Worker {worker_id} navigated to page {current_page}")
+                            break
+                if current_page < next_target:
+                    logger.info(f"Worker {worker_id} expected page {next_target} but got {current_page}. Retrying...")
+        logger.info(f"Worker {worker_id} reached end (last page {current_page}).")
+    except Exception as e:
+        logger.error(f"Worker {worker_id} error: {str(e)}", exc_info=True)
+    finally:
+        await ctx.close()
+        await context.close()
 
-            # Extract items from the current (target) page.
-            items = await self.extract_history_items(page)
-            self.logger.info(f"Worker processed page {target_page} and found {len(items)} items")
-            return items
-        except Exception as e:
-            self.logger.error(f"Error processing page {target_page}: {str(e)}", exc_info=True)
-            return items
-        finally:
-            await ctx.close()
-            await context.close()
-
-    async def extract_history_items(self, page) -> list:
-        items = []
+# ----- Extraction Function (shared across workers) -----
+async def extract_history_items(page) -> list:
+    items = []
+    try:
         await page.wait_for_selector("xpath=/html/body/div/main/div[2]/div/div[4]/table", timeout=8000)
         rows = await page.query_selector_all("xpath=/html/body/div/main/div[2]/div/div[4]/table/tbody/tr")
-        if not rows:
-            self.logger.debug("No rows found in table")
-            return items
-
-        self.logger.debug(f"Found {len(rows)} rows to process")
-        for i, row in enumerate(rows):
-            try:
-                await row.scroll_into_view_if_needed()
-                name_element = await row.query_selector("xpath=./td[1]//span[not(ancestor::small)]")
-                name_text = await name_element.text_content() if name_element else None
-                if not name_text:
-                    self.logger.debug(f"Name not found in row {i}")
-                    continue
-
-                price_element = await row.query_selector("xpath=./td[2]//div[contains(@class, 'justify-end')]")
-                raw_price = await price_element.text_content() if price_element else None
-                price_str = re.sub(r"[^\d]", "", raw_price) if raw_price else ""
-                if not price_str:
-                    self.logger.debug(f"Price not found in row {i}")
-                    continue
-                price = int(price_str)
-
-                date_element = await row.query_selector("xpath=./td[3]//div[contains(@class, 'justify-end')][1]")
-                time_element = await row.query_selector("xpath=./td[3]//small")
-                date_text = (await date_element.text_content()).strip() if date_element else ""
-                time_text = (await time_element.text_content()).strip() if time_element else ""
-                datetime_str = f"{date_text} {time_text}".strip()
-                try:
-                    dt = datetime.strptime(datetime_str, "%m/%d/%Y %I:%M:%S %p")
-                except ValueError:
-                    dt = None
-
-                item = {
-                    "name": name_text.strip(),
-                    "price": price,
-                    "datetime": dt.isoformat() if dt else datetime_str
-                }
-                items.append(item)
-                self.logger.debug(f"Processed row {i+1}: {item['name']} with price {item['price']}")
-            except Exception as e:
-                self.logger.warning(f"Error processing row {i}: {str(e)}")
-                continue
+    except Exception:
         return items
+    if not rows:
+        return items
+    for i, row in enumerate(rows):
+        try:
+            await row.scroll_into_view_if_needed()
+            name_element = await row.query_selector("xpath=./td[1]//span[not(ancestor::small)]")
+            name_text = await name_element.text_content() if name_element else None
+            if not name_text:
+                continue
+            price_element = await row.query_selector("xpath=./td[2]//div[contains(@class, 'justify-end')]")
+            raw_price = await price_element.text_content() if price_element else None
+            price_str = re.sub(r"[^\d]", "", raw_price) if raw_price else ""
+            if not price_str:
+                continue
+            price = int(price_str)
+            date_element = await row.query_selector("xpath=./td[3]//div[contains(@class, 'justify-end')][1]")
+            time_element = await row.query_selector("xpath=./td[3]//small")
+            date_text = (await date_element.text_content()).strip() if date_element else ""
+            time_text = (await time_element.text_content()).strip() if time_element else ""
+            datetime_str = f"{date_text} {time_text}".strip()
+            try:
+                dt = datetime.strptime(datetime_str, "%m/%d/%Y %I:%M:%S %p")
+            except ValueError:
+                dt = None
+            item = {
+                "name": name_text.strip(),
+                "price": price,
+                "datetime": dt.isoformat() if dt else datetime_str
+            }
+            items.append(item)
+        except Exception:
+            continue
+    return items
 
+# ----- Main Application for Global Database Handling -----
+class SKMarketScraperApp:
+    def __init__(self):
+        self.data_dir = "sk_market_data"
+        self.logger = logging.getLogger("SKMarketScraper")
+        self.item_db = defaultdict(list)
+    
     def process_history_items(self, items):
         for item in items:
             existing = self.item_db.get(item["name"], [])
-            if any(entry["timestamp"] == item["datetime"] and entry["price"] == item["price"] for entry in existing):
+            if any(e["timestamp"] == item["datetime"] and e["price"] == item["price"] for e in existing):
                 continue
             self.item_db[item["name"]].append({
                 "price": item["price"],
                 "timestamp": item["datetime"],
                 "type": "sale"
             })
-
-    def save_history_snapshot(self, items):
+    
+    def save_item_database(self):
+        db_path = os.path.join(self.data_dir, "item_database.json")
+        with open(db_path, "w") as f:
+            json.dump(self.item_db, f, indent=2)
+        self.logger.info(f"Global database saved to {db_path}")
+    
+    def save_history_snapshot(self, items, batch_number: int = None):
+        batch_tag = f"_batch{batch_number}" if batch_number is not None else ""
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        filename = os.path.join(self.data_dir, f"history_snapshot_{timestamp}.csv")
+        filename = os.path.join(self.data_dir, f"history_snapshot{batch_tag}_{timestamp}.csv")
         try:
-            with open(filename, 'w', newline='', encoding='utf-8') as csvfile:
-                fieldnames = ['name', 'price', 'datetime']
+            with open(filename, "w", newline="", encoding="utf-8") as csvfile:
+                fieldnames = ["name", "price", "datetime"]
                 writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
                 writer.writeheader()
                 writer.writerows(items)
             self.logger.info(f"History snapshot saved to {filename}")
         except Exception as e:
-            self.logger.error(f"Error saving history snapshot: {str(e)}")
+            self.logger.error(f"Error saving snapshot: {str(e)}")
 
-    def get_item_stats(self, item_name):
-        if item_name not in self.item_db or not self.item_db[item_name]:
-            return None
-        prices = [entry['price'] for entry in self.item_db[item_name]]
-        stats = {
-            'average_price': sum(prices) / len(prices),
-            'median_price': statistics.median(prices),
-            'min_price': min(prices),
-            'max_price': max(prices),
-            'last_sold': self.item_db[item_name][-1] if self.item_db[item_name] else None
-        }
-        return stats
-
+# ----- Main Function -----
 async def main():
-    scraper = SKMarketScraper()
-    scraper.logger.info("Starting parallel history scraping process")
+    logging.basicConfig(level=logging.INFO,
+                        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+    logger = logging.getLogger("SKMarketScraper")
+    logger.info("Starting persistent parallel scraping")
     
-    max_pages = 10  # For demonstration: process pages 1 to 10 concurrently.
+    total_pages = 200  # For testing; set to 5908 when ready.
+    max_workers = 20
+    batch_size = 40  # Save after every 100 pages scraped.
+    
+    result_queue = asyncio.Queue()
+    
     async with async_playwright() as p:
-        tasks = [scraper.process_page(page_num, p) for page_num in range(1, max_pages+1)]
-        results = await asyncio.gather(*tasks)
+        # Start persistent workers.
+        workers = []
+        for worker_id in range(1, max_workers + 1):
+            workers.append(asyncio.create_task(persistent_worker(worker_id, max_workers, total_pages, result_queue, p)))
+        
+        scraped_pages_count = 0
+        batch_items = []
+        global_items = []
+        
+        # Consume results until all workers are done and queue is empty.
+        while any(not w.done() for w in workers) or not result_queue.empty():
+            try:
+                page_number, items = await result_queue.get()
+                global_items.extend(items)
+                batch_items.extend(items)
+                scraped_pages_count += 1
+                logger.info(f"Main: Received data for page {page_number} (total scraped pages: {scraped_pages_count})")
+                if scraped_pages_count % batch_size == 0:
+                    app = SKMarketScraperApp()
+                    # Merge current global_items.
+                    for item in global_items:
+                        existing = app.item_db.get(item["name"], [])
+                        if not any(e["timestamp"] == item["datetime"] and e["price"] == item["price"] for e in existing):
+                            existing.append({
+                                "price": item["price"],
+                                "timestamp": item["datetime"],
+                                "type": "sale"
+                            })
+                        app.item_db[item["name"]] = existing
+                    app.save_item_database()
+                    app.save_history_snapshot(batch_items, batch_number=scraped_pages_count // batch_size)
+                    logger.info(f"Main: Completed batch of {batch_size} pages; total items so far: {len(global_items)}")
+                    batch_items = []
+            except Exception as e:
+                logger.error(f"Main loop error: {str(e)}", exc_info=True)
+                break
+
+        await asyncio.gather(*workers)
     
-    all_history_items = []
-    for page_items in results:
-        all_history_items.extend(page_items)
-    
-    scraper.process_history_items(all_history_items)
-    scraper.save_history_snapshot(all_history_items)
-    
-    if all_history_items:
-        first_item = all_history_items[0]['name']
-        stats = scraper.get_item_stats(first_item)
-        if stats:
-            scraper.logger.info(f"Stats for {first_item}:")
-            scraper.logger.info(f"  Average Price: {stats['average_price']:.2f}")
-            scraper.logger.info(f"  Median Price: {stats['median_price']:.2f}")
-            scraper.logger.info(f"  Price Range: {stats['min_price']} - {stats['max_price']}")
-            scraper.logger.info(f"  Last Sold: {stats['last_sold']}")
-    
-    scraper.logger.info("Parallel history scraping process completed")
+    logger.info(f"Total pages scraped: {scraped_pages_count}")
+    logger.info(f"Total items scraped: {len(global_items)}")
+    logger.info("Persistent parallel scraping completed.")
 
 if __name__ == "__main__":
     asyncio.run(main())
